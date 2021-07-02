@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { auth } from '../../interfaces/auth.interface';
 
 @Component({
   selector: 'app-login',
@@ -6,11 +9,16 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent  {
 
-  constructor() { }
+  constructor(private router:Router,
+              private loginS:AuthService) { }
 
-  ngOnInit(): void {
-  }
+
+login(){
+  this.loginS.login().subscribe(resp => {if(resp.id){
+    this.router.navigate(['./heroes'])
+  }})
+}
 
 }
